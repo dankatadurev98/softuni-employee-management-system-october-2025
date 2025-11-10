@@ -12,6 +12,8 @@ export default function UserList(){
     .then(data =>{
       let info = Object.values(data)
       setUsers(info)
+      console.log(info);
+      
     })
     .catch(()=>{
       alert(err.message)
@@ -118,7 +120,8 @@ export default function UserList(){
             </tr>
           </thead>
           <tbody>
-            <UserItem/>
+            {users.map(user=><UserItem key={user._id} {...user}/>)}
+            
           </tbody>
         </table>
       </div>
