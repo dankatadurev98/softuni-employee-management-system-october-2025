@@ -1,12 +1,15 @@
-export default function CreateUserModal(){
+export default function CreateUserModal({
+  onClose,
+  onSubmit
+}){
     return (
         <div className="overlay">
-  <div className="backdrop" />
+  <div className="backdrop" onClick={onClose}/>
   <div className="modal">
     <div className="user-container">
       <header className="headers">
         <h2>Edit User/Add User</h2>
-        <button className="btn close">
+        <button className="btn close" onClick={onClose}>
           <svg
             aria-hidden="true"
             focusable="false"
@@ -24,7 +27,7 @@ export default function CreateUserModal(){
           </svg>
         </button>
       </header>
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="form-row">
           <div className="form-group">
             <label htmlFor="firstName">First name</label>
@@ -118,7 +121,7 @@ export default function CreateUserModal(){
           <button id="action-save" className="btn" type="submit">
             Save
           </button>
-          <button id="action-cancel" className="btn" type="button">
+          <button id="action-cancel" className="btn" type="button" onClick={onClose}>
             Cancel
           </button>
         </div>

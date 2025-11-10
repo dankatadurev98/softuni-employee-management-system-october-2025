@@ -16,6 +16,20 @@ function App() {
     console.log('add user')
   }
 
+  function removeModal(){
+    setShowCreatUser(false)
+  }
+
+  function submitModal(event){
+    event.preventDefault();
+
+    let data = new FormData(event.target)
+
+    let finalData = Object.fromEntries(data)
+
+   
+  }
+
 
   return (
     <main>
@@ -29,14 +43,13 @@ function App() {
           <UserList />
 
           <button className="btn-add btn" onClick={addUser}
-
           >Add new user</button>
 
           <Pagination />
 
         </section>
 
-        {showCreateUser && <CreateUserModal />}
+        {showCreateUser && <CreateUserModal onClose={removeModal} onSubmit={submitModal} />}
       </main>
 
 
