@@ -2,7 +2,9 @@ import { useEffect,useState } from "react"
 import UserItem from "./UserItem"
 
 
-export default function UserList(){
+export default function UserList({
+  forceRefresh
+}){
 
   const [users,setUsers] = useState([]);
  
@@ -18,7 +20,7 @@ export default function UserList(){
     .catch(()=>{
       alert(err.message)
     })
-  },[])
+  },[forceRefresh])
 
     return (
         <div className="table-wrapper">

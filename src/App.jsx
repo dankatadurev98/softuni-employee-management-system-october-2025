@@ -9,6 +9,7 @@ import CreateUserModal from "./components/CreateUserModal"
 
 function App() {
   const [showCreateUser, setShowCreatUser] = useState(false)
+  const [forceRefresh,setForceRefresh] = useState(true)
 
   function addUser() {
 
@@ -16,18 +17,33 @@ function App() {
     console.log('add user')
   }
 
-  function removeModal(){
+  function removeModal() {
     setShowCreatUser(false)
   }
 
-  function submitModal(event){
+  function submitModal(event) {
     event.preventDefault();
 
     let data = new FormData(event.target)
 
     let finalData = Object.fromEntries(data)
 
-   
+    fetch('http://localhost:3030/jsonstore/users', {
+      method: "POST",
+      headers: {
+        "content-type": "application/json"
+      },
+      body: JSON.stringify(finalData)
+    })
+      .then(res => res.json())
+      .then(info => {
+        console.log(info)
+        setForceRefresh(state=>!state)
+        removeModal()
+      })
+      .catch(info => {
+        console.log(info)
+      })
   }
 
 
@@ -40,7 +56,7 @@ function App() {
 
           <SearchForm />
 
-          <UserList />
+          <UserList forceRefresh={forceRefresh}/>
 
           <button className="btn-add btn" onClick={addUser}
           >Add new user</button>
